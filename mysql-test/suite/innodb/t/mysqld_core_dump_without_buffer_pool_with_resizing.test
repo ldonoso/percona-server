@@ -29,8 +29,11 @@ let $wait_condition =
   WHERE LOWER(variable_name) = 'innodb_buffer_pool_resize_status';
 
 --disable_query_log
-set @old_innodb_disable_resize   = @@innodb_disable_resize_buffer_pool_debug;
-set global innodb_disable_resize_buffer_pool_debug = OFF;
+if (`select (version() like '%debug%') > 0`)
+{
+    set @old_innodb_disable_resize = @@innodb_disable_resize_buffer_pool_debug;
+    set global innodb_disable_resize_buffer_pool_debug = OFF;
+}
 set @old_innodb_buffer_pool_size = @@innodb_buffer_pool_size;
 set @old_innodb_file_per_table = @@innodb_file_per_table;
 set @old_innodb_adaptive_hash_index = @@innodb_adaptive_hash_index;
@@ -56,7 +59,10 @@ let $wait_timeout = 120;
 set global innodb_buffer_pool_size = @old_innodb_buffer_pool_size;
 set global innodb_file_per_table = @old_innodb_file_per_table;
 set global innodb_adaptive_hash_index = @old_innodb_adaptive_hash_index;
-set global innodb_disable_resize_buffer_pool_debug = @old_innodb_disable_resize;
+if (`select (version() like '%debug%') > 0`)
+{
+    set global innodb_disable_resize_buffer_pool_debug = @old_innodb_disable_resize;
+}
 --enable_query_log
 let $wait_timeout = 120;
 --source include/wait_condition.inc

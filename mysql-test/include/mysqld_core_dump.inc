@@ -1,5 +1,3 @@
---source include/have_core_uses_pid.inc
-
 --echo # Get the full path name of the PID file
 --let $pid_file= query_get_value(SELECT @@pid_file, @@pid_file, 1)
 --let PIDFILE= $pid_file
