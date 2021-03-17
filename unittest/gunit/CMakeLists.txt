@@ -1,4 +1,4 @@
-# Copyright (c) 2010, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2010, 2020, Oracle and/or its affiliates. All rights reserved.
 # 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2.0,
@@ -503,4 +503,9 @@ ENDIF(MERGE_UNITTESTS)
 
 ADD_SUBDIRECTORY(innodb)
 ADD_SUBDIRECTORY(keyring)
+<<<<<<< HEAD
 ADD_SUBDIRECTORY(keyring_vault)
+||||||| 2032b65c44e
+=======
+ADD_SUBDIRECTORY(locks)
+>>>>>>> 261d32555b57f15f53dbc4a4dc9d17c3291b5013
