@@ -3015,13 +3015,8 @@ static const char *optimizer_switch_names[]=
   "materialization", "semijoin", "loosescan", "firstmatch", "duplicateweedout",
   "subquery_materialization_cost_based",
   "use_index_extensions", "condition_fanout_filter", "derived_merge",
-<<<<<<< HEAD
+  "prefer_ordering_index",
   "favor_range_scan", "default", NullS
-||||||| 2032b65c44e
-  "default", NullS
-=======
-  "prefer_ordering_index", "default", NullS
->>>>>>> 261d32555b57f15f53dbc4a4dc9d17c3291b5013
 };
 static Sys_var_flagset Sys_optimizer_switch(
        "optimizer_switch",
@@ -3032,17 +3027,10 @@ static Sys_var_flagset Sys_optimizer_switch(
        ", materialization, semijoin, loosescan, firstmatch, duplicateweedout,"
        " subquery_materialization_cost_based"
        ", block_nested_loop, batched_key_access, use_index_extensions,"
-<<<<<<< HEAD
-       " condition_fanout_filter, derived_merge, favor_range_scan}"
-       " and val is one of {on, off, default}",
-||||||| 2032b65c44e
-       " condition_fanout_filter, derived_merge} and val is one of "
-       "{on, off, default}",
-=======
-       " condition_fanout_filter, derived_merge, prefer_ordering_index}"
+       " condition_fanout_filter, derived_merge, prefer_ordering_index,"
+       " favor_range_scan}"
        " and val is one of "
        "{on, off, default}",
->>>>>>> 261d32555b57f15f53dbc4a4dc9d17c3291b5013
        SESSION_VAR(optimizer_switch), CMD_LINE(REQUIRED_ARG),
        optimizer_switch_names, DEFAULT(OPTIMIZER_SWITCH_DEFAULT),
        NO_MUTEX_GUARD, NOT_IN_BINLOG, ON_CHECK(NULL), ON_UPDATE(NULL));
@@ -6554,13 +6542,10 @@ static Sys_var_mybool Sys_keyring_operations(
        NOT_IN_BINLOG,
        ON_CHECK(check_keyring_access),
        ON_UPDATE(0));
-<<<<<<< HEAD
 
 #ifndef DBUG_OFF
 Debug_shutdown_actions Debug_shutdown_actions::instance;
 #endif
-||||||| 2032b65c44e
-=======
 
 /**
   Changes the `Delegate` internal state in regards to which type of lock to
@@ -6614,4 +6599,3 @@ static Sys_var_mybool Sys_replication_sender_observe_commit_only(
        NOT_IN_BINLOG,
        ON_CHECK(0),
        ON_UPDATE(handle_sender_observe_commit_change));
->>>>>>> 261d32555b57f15f53dbc4a4dc9d17c3291b5013
