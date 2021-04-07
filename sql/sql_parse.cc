@@ -1206,9 +1206,9 @@ void bind_fields(Item *first) {
  */
 static bool net_buffer_shrink_interval_is_over(
     const THD *const thd, unsigned long long net_buffer_shrink_time) {
-  mysql_mutex_lock(&LOCK_global_system_variables);
+  mysql_mutex_lock(&LOCK_net_buffer_shrink_interval);
   auto interval = net_buffer_shrink_interval;
-  mysql_mutex_unlock(&LOCK_global_system_variables);
+  mysql_mutex_unlock(&LOCK_net_buffer_shrink_interval);
 
   return interval != 0 &&
          thd->start_utime / 1000000 > net_buffer_shrink_time + interval;

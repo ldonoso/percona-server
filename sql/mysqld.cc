@@ -1026,6 +1026,7 @@ static PSI_mutex_key key_LOCK_log_throttle_qni;
 static PSI_mutex_key key_LOCK_reset_gtid_table;
 static PSI_mutex_key key_LOCK_compress_gtid_table;
 static PSI_mutex_key key_LOCK_collect_instance_log;
+static PSI_mutex_key key_LOCK_net_buffer_shrink_interval;
 static PSI_mutex_key key_BINLOG_LOCK_commit;
 static PSI_mutex_key key_BINLOG_LOCK_commit_queue;
 static PSI_mutex_key key_BINLOG_LOCK_done;
@@ -1215,6 +1216,7 @@ mysql_mutex_t LOCK_password_history;
 mysql_mutex_t LOCK_password_reuse_interval;
 mysql_mutex_t LOCK_tls_ctx_options;
 mysql_mutex_t LOCK_admin_tls_ctx_options;
+mysql_mutex_t LOCK_net_buffer_shrink_interval;
 
 #if defined(ENABLED_DEBUG_SYNC)
 MYSQL_PLUGIN_IMPORT uint opt_debug_sync_timeout = 0;
@@ -2593,6 +2595,7 @@ static void clean_up_mutexes() {
   mysql_mutex_destroy(&LOCK_collect_instance_log);
   mysql_mutex_destroy(&LOCK_password_history);
   mysql_mutex_destroy(&LOCK_password_reuse_interval);
+  mysql_mutex_destroy(&LOCK_net_buffer_shrink_interval);
   mysql_cond_destroy(&COND_manager);
 #ifdef _WIN32
   mysql_cond_destroy(&COND_handler_count);
@@ -5228,6 +5231,8 @@ static int init_thread_environment() {
   mysql_mutex_init(key_LOCK_compress_gtid_table, &LOCK_compress_gtid_table,
                    MY_MUTEX_INIT_FAST);
   mysql_mutex_init(key_LOCK_collect_instance_log, &LOCK_collect_instance_log,
+                   MY_MUTEX_INIT_FAST);
+  mysql_mutex_init(key_LOCK_net_buffer_shrink_interval, &LOCK_net_buffer_shrink_interval,
                    MY_MUTEX_INIT_FAST);
   mysql_cond_init(key_COND_compress_gtid_table, &COND_compress_gtid_table);
 
@@ -11502,6 +11507,7 @@ static PSI_mutex_info all_server_mutexes[]=
   { &key_LOCK_reset_gtid_table, "LOCK_reset_gtid_table", PSI_FLAG_SINGLETON, 0, PSI_DOCUMENT_ME},
   { &key_LOCK_compress_gtid_table, "LOCK_compress_gtid_table", PSI_FLAG_SINGLETON, 0, PSI_DOCUMENT_ME},
   { &key_LOCK_collect_instance_log, "LOCK_collect_instance_log", PSI_FLAG_SINGLETON, 0, PSI_DOCUMENT_ME},
+  { &key_LOCK_net_buffer_shrink_interval, "LOCK_net_buffer_shrink_interval", PSI_FLAG_SINGLETON, 0, PSI_DOCUMENT_ME},
   { &key_mts_gaq_LOCK, "key_mts_gaq_LOCK", 0, 0, PSI_DOCUMENT_ME},
   { &key_thd_timer_mutex, "thd_timer_mutex", 0, 0, PSI_DOCUMENT_ME},
   { &key_commit_order_manager_mutex, "Commit_order_manager::m_mutex", 0, 0, PSI_DOCUMENT_ME},

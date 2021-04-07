@@ -2800,6 +2800,8 @@ static Sys_var_ulong Sys_max_allowed_packet(
     BLOCK_SIZE(1024), NO_MUTEX_GUARD, NOT_IN_BINLOG,
     ON_CHECK(check_max_allowed_packet));
 
+static PolyLock_mutex PLock_sys_net_buffer_shrink_interval(&LOCK_net_buffer_shrink_interval);
+
 static Sys_var_ulong Sys_net_buffer_shrink_interval(
     "net_buffer_shrink_interval",
     "Check and maybe shrink network buffer with given frequency(seconds). "
@@ -2807,7 +2809,7 @@ static Sys_var_ulong Sys_net_buffer_shrink_interval(
     "net_buffer_shrink_interval seconds. "
     "Set to 0 to disable checks and shrinks",
     GLOBAL_VAR(net_buffer_shrink_interval), CMD_LINE(REQUIRED_ARG),
-    VALID_RANGE(0, LONG_TIMEOUT), DEFAULT(0), BLOCK_SIZE(1), NO_MUTEX_GUARD,
+    VALID_RANGE(0, LONG_TIMEOUT), DEFAULT(0), BLOCK_SIZE(1), &PLock_sys_net_buffer_shrink_interval,
     NOT_IN_BINLOG);
 
 static Sys_var_ulong Sys_slave_max_allowed_packet(
