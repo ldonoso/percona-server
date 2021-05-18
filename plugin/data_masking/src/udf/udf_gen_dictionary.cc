@@ -72,10 +72,14 @@ static std::string _gen_dictionary(const char *dictionary_name) {
   mysql::plugins::tolower(s_dictname);
 
   mysql_rwlock_rdlock(&g_data_masking_dict_rwlock);
-  if (g_data_masking_dict->count(s_dictname) == 1) {
-    std::vector<std::string> *a = &(g_data_masking_dict->at(s_dictname));
-    res = (*a)[mysql::plugins::random_number(0, a->size() - 1)];
+
+  t_mask_dict::const_iterator it = g_data_masking_dict->find(s_dictname);                         
+  if (it != g_data_masking_dict->end()) {
+    const t_mask_dict::mapped_type& dict = it->second;
+    long idx = mysql::plugins::random_number(0, dict.size() - 1);
+    res = dict[idx];
   }
+
   mysql_rwlock_unlock(&g_data_masking_dict_rwlock);
 
   return res;
@@ -87,8 +91,9 @@ static char *gen_dictionary(UDF_INIT *initid, UDF_ARGS *args, char *,
 
   std::string res = _gen_dictionary(args->args[0]);
   *length = res.size();
+
   if (!(*is_null = (*length == 0))) {
-    initid->ptr = new char[*length * 1];
+    initid->ptr = new char[(*length) + 1];  // *length doesn't include '\0'
     strcpy(initid->ptr, res.c_str());
   }
 
