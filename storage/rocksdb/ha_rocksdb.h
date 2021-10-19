@@ -1108,6 +1108,8 @@ class Rdb_compaction_stats {
 
 extern Rdb_compaction_stats compaction_stats;
 
+unsigned long long get_partial_index_sort_max_mem(THD *thd);
+
 // TODOLUIS =======
 Rdb_transaction *get_tx_from_thd(THD *const thd);
 
@@ -1130,6 +1132,9 @@ rocksdb::Status rdb_tx_get_for_update(Rdb_transaction *tx,
                                       const rocksdb::Slice &key,
                                       rocksdb::PinnableSlice *const value,
                                       bool exclusive, bool skip_wait);
+
+void rdb_tx_release_lock(Rdb_transaction *tx, const Rdb_key_def &kd,
+                         const rocksdb::Slice &key, bool force);
 
 inline void rocksdb_smart_seek(bool seek_backward,
                                rocksdb::Iterator *const iter,
@@ -1173,4 +1178,10 @@ int rdb_tx_set_status_error(Rdb_transaction *tx, const rocksdb::Status &s,
                             const Rdb_key_def &kd,
                             const Rdb_tbl_def *const tbl_def);
 // TODOLUIS >>>>>>> 045ead26e81... Implement iterator class
+
+extern std::atomic<uint64_t> rocksdb_partial_index_groups_sorted;
+extern std::atomic<uint64_t> rocksdb_partial_index_groups_materialized;
+extern std::atomic<uint64_t> rocksdb_partial_index_rows_sorted;
+extern std::atomic<uint64_t> rocksdb_partial_index_rows_materialized;
+
 }  // namespace myrocks
