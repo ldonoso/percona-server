@@ -1,5 +1,5 @@
-# restart:--log-error=MYSQLTEST_VARDIR/tmp/rocksdb.use_direct_reads_writes.err --rocksdb_use_direct_reads=1 --rocksdb_allow_mmap_reads=1
+# restart:--log-error=/home/ldonoso/src/percona-server-bld/mysql-test/var/1/tmp/rocksdb.use_direct_reads_writes_SERVER_UUID.err --rocksdb_use_direct_reads=1 --rocksdb_allow_mmap_reads=1
 Pattern "enable both use_direct_reads" found
-# restart:--log-error=MYSQLTEST_VARDIR/tmp/rocksdb.use_direct_reads_writes.err --rocksdb_use_direct_io_for_flush_and_compaction=1 --rocksdb_allow_mmap_writes=1
+# restart:--log-error=/home/ldonoso/src/percona-server-bld/mysql-test/var/1/tmp/rocksdb.use_direct_reads_writes_SERVER_UUID.err --rocksdb_use_direct_io_for_flush_and_compaction=1 --rocksdb_allow_mmap_writes=1
 Pattern "enable both use_direct_io_for_flush_and_compaction" found
 # restart
