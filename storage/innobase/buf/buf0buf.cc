@@ -4355,18 +4355,6 @@ bool buf_page_optimistic_get(ulint rw_latch, buf_block_t *block,
 
   buf_block_buf_fix_inc(block, file, line);
 
-<<<<<<< HEAD
-||||||| 3290a66c89e
-  auto access_time = buf_page_is_accessed(&block->page);
-
-  buf_page_set_accessed(&block->page);
-
-=======
-  const auto access_time = buf_page_is_accessed(&block->page);
-
-  buf_page_set_accessed(&block->page);
-
->>>>>>> mysql-8.0.28
   buf_page_mutex_exit(block);
 
   ut_ad(!ibuf_inside(mtr) ||
@@ -4433,23 +4421,9 @@ bool buf_page_optimistic_get(ulint rw_latch, buf_block_t *block,
   ut_a(buf_block_get_state(block) == BUF_BLOCK_FILE_PAGE);
 #endif /* UNIV_DEBUG || UNIV_BUF_DEBUG */
 
-<<<<<<< HEAD
   trx_t *trx;
-  if (access_time == 0) {
-    trx = innobase_get_trx_for_slow_log();
-||||||| 3290a66c89e
-  ut_d(buf_page_mutex_enter(block));
-  ut_ad(!block->page.file_page_was_freed);
-  ut_d(buf_page_mutex_exit(block));
-
-  if (access_time == 0) {
-=======
-  ut_d(buf_page_mutex_enter(block));
-  ut_ad(!block->page.file_page_was_freed);
-  ut_d(buf_page_mutex_exit(block));
-
   if (access_time == std::chrono::steady_clock::time_point{}) {
->>>>>>> mysql-8.0.28
+    trx = innobase_get_trx_for_slow_log();
     /* In the case of a first access, try to apply linear read-ahead */
     buf_read_ahead_linear(block->page.id, block->page.size, ibuf_inside(mtr),
                           trx);

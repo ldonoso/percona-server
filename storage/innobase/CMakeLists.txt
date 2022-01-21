@@ -337,7 +337,6 @@ IF(HAS_WARN_FLAG)
   ADD_COMPILE_FLAGS(fts/fts0pars.cc
     COMPILE_FLAGS "${HAS_WARN_FLAG}")
 ENDIF()
-<<<<<<< HEAD
 
 # Suppress warnings for gcc-11 or newer
 IF(CMAKE_COMPILER_IS_GNUCXX AND NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11)
@@ -345,8 +344,6 @@ IF(CMAKE_COMPILER_IS_GNUCXX AND NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11)
   # a false positive with a bison-generated file (https://gcc.gnu.org/bugzilla/show_bug.cgi?id=98753)
   ADD_CXX_COMPILE_FLAGS_TO_FILES(-Wno-free-nonheap-object FILES pars/pars0grm.cc)
 ENDIF()
-||||||| 3290a66c89e
-=======
 
 IF(MSVC AND NOT WIN32_CLANG)
   # Disable C4100: unreferenced formal parameter
@@ -359,4 +356,3 @@ IF(MSVC AND NOT WIN32_CLANG)
   ENDFOREACH()
   TARGET_COMPILE_OPTIONS(innodb_zipdecompress PRIVATE "/wd4100")
 ENDIF()
->>>>>>> mysql-8.0.28

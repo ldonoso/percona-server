@@ -38,12 +38,8 @@ this program; if not, write to the Free Software Foundation, Inc.,
 
 #include "mysqld_error.h"
 #include "storage/innobase/include/detail/ut/helper.h"
-<<<<<<< HEAD
 #include "storage/innobase/include/os0populate.h"
-||||||| 3290a66c89e
-=======
 #include "storage/innobase/include/ut0log.h"
->>>>>>> mysql-8.0.28
 
 extern const size_t large_page_default_size;
 
@@ -62,17 +58,14 @@ inline void *large_page_aligned_alloc(size_t n_bytes, bool populate) {
   void *ptr =
       VirtualAlloc(nullptr, n_bytes_rounded,
                    MEM_COMMIT | MEM_RESERVE | MEM_LARGE_PAGES, PAGE_READWRITE);
-<<<<<<< HEAD
-  if (!ptr && populate) prefault_if_not_map_populate(ptr, n_bytes);
-
-||||||| 3290a66c89e
-=======
   if (unlikely(!ptr)) {
     ib::log_warn(ER_IB_MSG_856)
         << "large_page_aligned_alloc VirtualAlloc(" << n_bytes_rounded
         << " bytes) failed; Windows error " << GetLastError();
   }
->>>>>>> mysql-8.0.28
+
+  if (!ptr && populate) prefault_if_not_map_populate(ptr, n_bytes_rounded);
+
   return ptr;
 }
 
