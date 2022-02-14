@@ -323,7 +323,7 @@ man_pages = [('index', # source start file
               ''.join([''.join(project.lower().split()),
                        ''.join(version.split('.'))]), # name, such as perconaserver57
               ' '.join([project, version, u'Documentation']), # description, such as Percona Server 5.7 Documentation
-              [u'Percona LLC and/or its affiliates 2009-2019'], # authors
+              [u'Percona LLC and/or its affiliates 2009-2022'], # authors
               1 # manual section
 )]
 
