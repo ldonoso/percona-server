@@ -10889,6 +10889,7 @@ page_cur_mode_t convert_search_mode_to_innobase(ha_rkey_function find_flag) {
   return (PAGE_CUR_UNSUPP);
 }
 
+#if defined(UNIV_DEBUG) && !defined(UNIV_DEBUG_VALGRIND)
 static bool template_new_is_valid(mysql_row_templ_t *t_new,
                                   const mysql_row_templ_t *t_saved,
                                   int n_template) {
@@ -10906,6 +10907,7 @@ static bool template_new_is_valid(mysql_row_templ_t *t_new,
 
   return !memcmp(t_new, t_saved, n_template * sizeof(mysql_row_templ_t));
 }
+#endif
 
 /*
    BACKGROUND INFO: HOW A SELECT SQL QUERY IS EXECUTED
