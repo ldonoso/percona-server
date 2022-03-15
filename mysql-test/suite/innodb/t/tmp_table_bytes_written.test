@@ -2,8 +2,10 @@
 
 --let $prevSize = query_get_value(SHOW STATUS LIKE 'Tmp_table_bytes_written', Value, 1)
 
-create table t1 (i int, c char(255));
-create table t2 (i int, c varchar(255));
+# Add an index so the folloging `select ... group by` commands don't generate a temp tables
+# https://dev.mysql.com/doc/refman/8.0/en/internal-temporary-tables.html
+create table t1 (i int, c char(255), index(i, c));
+create table t2 (i int, c varchar(255), index(i, c));
 
 insert into t1 values (0, lpad('a', 250, 'b'));
 insert into t1 select i+1,c from t1;
@@ -96,7 +98,7 @@ select i, c, count(*) from t1 group by i, c having count(*) > 1;
 select i, c, count(*) from t2 group by i, c having count(*) > 1;
 
 --let $nextSize = query_get_value(SHOW STATUS LIKE 'Tmp_table_bytes_written', Value, 1)
---let $assert_text= The above statements should not have notincreased Tmp_table_bytes_written
+--let $assert_text= The above statements should not have not increased Tmp_table_bytes_written
 --let $assert_cond= $nextSize = $prevSize
 --source include/assert.inc
 --let $prevSize = $nextSize
