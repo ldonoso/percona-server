@@ -674,6 +674,19 @@ static inline ulint rec_offs_nth_default(const ulint *offsets, ulint n) {
   return (rec_offs_base(offsets)[1 + n] & REC_OFFS_DEFAULT);
 }
 
+static inline ulint rec_offs_nth_size_old(
+    const ulint *offsets, /*!< in: array returned by rec_get_offsets() */
+    ulint n)              /*!< in: nth field */
+{
+  ut_ad(rec_offs_validate(nullptr, nullptr, offsets));
+  ut_ad(n < rec_offs_n_fields(offsets));
+  if (!n) {
+    return (rec_offs_base(offsets)[1 + n] & REC_OFFS_MASK);
+  }
+  return ((rec_offs_base(offsets)[1 + n] - rec_offs_base(offsets)[n]) &
+          REC_OFFS_MASK);
+}
+
 /** Gets the physical size of a field.
  @return length of field */
 static inline ulint rec_offs_nth_size(
@@ -687,6 +700,8 @@ static inline ulint rec_offs_nth_size(
   if (n != 0) {
     size -= rec_offs_base(offsets)[n] & REC_OFFS_MASK;
   }
+
+  ut_ad(size == rec_offs_nth_size_old(offsets, n));
 
   return size;
 }
