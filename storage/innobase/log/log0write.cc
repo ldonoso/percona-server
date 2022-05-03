@@ -3048,7 +3048,6 @@ bool log_file_header_fill_encryption(byte *buf, const byte *key, const byte *iv,
   return (true);
 }
 
-<<<<<<< HEAD
 static bool log_file_header_fill_encryption(byte *buf, ulint key_version,
                                             byte *iv) {
   byte encryption_info[Encryption::INFO_SIZE] = {};
@@ -3061,17 +3060,12 @@ static bool log_file_header_fill_encryption(byte *buf, ulint key_version,
   return (true);
 }
 
-bool log_write_encryption(byte *key, byte *iv, bool is_boot,
+bool log_write_encryption(byte *key, byte *iv,
                           redo_log_encrypt_enum redo_log_encrypt,
                           uint version) {
   ut_ad(redo_log_encrypt != REDO_LOG_ENCRYPT_MK ||
         version == REDO_LOG_ENCRYPT_NO_VERSION);
 
-||||||| 6846e6b2f72
-bool log_write_encryption(byte *key, byte *iv, bool is_boot) {
-=======
-bool log_write_encryption(byte *key, byte *iv) {
->>>>>>> mysql-8.0.29
   const page_id_t page_id{dict_sys_t::s_log_space_first_id, 0};
   byte *log_block_buf = static_cast<byte *>(
       ut::aligned_zalloc(OS_FILE_LOG_BLOCK_SIZE, OS_FILE_LOG_BLOCK_SIZE));
@@ -3084,14 +3078,12 @@ bool log_write_encryption(byte *key, byte *iv) {
     version = space->encryption_key_version;
   }
 
-<<<<<<< HEAD
   if (redo_log_encrypt == REDO_LOG_ENCRYPT_MK ||
       redo_log_encrypt == REDO_LOG_ENCRYPT_ON ||
       existing_redo_encryption_mode == REDO_LOG_ENCRYPT_MK) {
     ut_ad(existing_redo_encryption_mode != REDO_LOG_ENCRYPT_RK);
     ut_ad(redo_log_encrypt != REDO_LOG_ENCRYPT_RK);
-    if (!log_file_header_fill_encryption(log_block_buf, key, iv, is_boot,
-                                         true)) {
+    if (!log_file_header_fill_encryption(log_block_buf, key, iv, true)) {
       ut::aligned_free(log_block_buf);
       return (false);
     }
@@ -3108,15 +3100,6 @@ bool log_write_encryption(byte *key, byte *iv) {
     }
 
     existing_redo_encryption_mode = REDO_LOG_ENCRYPT_RK;
-||||||| 6846e6b2f72
-  if (!log_file_header_fill_encryption(log_block_buf, key, iv, is_boot, true)) {
-    ut::aligned_free(log_block_buf);
-    return (false);
-=======
-  if (!log_file_header_fill_encryption(log_block_buf, key, iv, true)) {
-    ut::aligned_free(log_block_buf);
-    return (false);
->>>>>>> mysql-8.0.29
   }
 
   auto err = fil_redo_io(IORequestLogWrite, page_id, univ_page_size,
@@ -3136,9 +3119,8 @@ bool log_rotate_encryption() {
   }
 
   /* Rotate log tablespace */
-<<<<<<< HEAD
   return (log_write_encryption(
-      nullptr, nullptr, false,
+      nullptr, nullptr,
       static_cast<redo_log_encrypt_enum>(srv_redo_log_encrypt)));
 }
 
@@ -3198,11 +3180,6 @@ void log_rotate_default_key() {
                          space->encryption_iv, false, REDO_LOG_ENCRYPT_RK,
                          key->version);
   }
-||||||| 6846e6b2f72
-  return (log_write_encryption(nullptr, nullptr, false));
-=======
-  return (log_write_encryption(nullptr, nullptr));
->>>>>>> mysql-8.0.29
 }
 
 /** @} */

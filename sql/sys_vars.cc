@@ -153,10 +153,8 @@
 #include "storage/perfschema/terminology_use_previous.h"
 #endif /* WITH_PERFSCHEMA_STORAGE_ENGINE */
 
-<<<<<<< HEAD
 #define MAX_CONNECTIONS 100000
-||||||| 6846e6b2f72
-=======
+
 static constexpr const unsigned long DEFAULT_ERROR_COUNT{1024};
 static constexpr const unsigned long DEFAULT_SORT_MEMORY{256UL * 1024UL};
 static constexpr const unsigned HOST_CACHE_SIZE{128};
@@ -215,7 +213,6 @@ static constexpr const unsigned long long OPTIMIZER_SWITCH_DEFAULT{
     OPTIMIZER_SWITCH_DERIVED_CONDITION_PUSHDOWN};
 
 static constexpr const unsigned long MYSQLD_NET_RETRY_COUNT{10};
->>>>>>> mysql-8.0.29
 
 TYPELIB bool_typelib = {array_elements(bool_values) - 1, "", bool_values,
                         nullptr};
@@ -8151,12 +8148,10 @@ static Sys_var_enum Sys_terminology_use_previous(
     NO_MUTEX_GUARD, NOT_IN_BINLOG, ON_CHECK(nullptr), ON_UPDATE(nullptr),
     DEPRECATED_VAR(""));
 
-<<<<<<< HEAD
 #ifndef NDEBUG
-    Debug_shutdown_actions Debug_shutdown_actions::instance;
+Debug_shutdown_actions Debug_shutdown_actions::instance;
 #endif
-||||||| 6846e6b2f72
-=======
+
 static Sys_var_bool Sys_xa_detatch_on_prepare(
     "xa_detach_on_prepare",
     "When set, XA transactions will be detached (AKA dissociated or "
@@ -8189,4 +8184,3 @@ static Sys_var_bool Sys_persist_sensitive_variables_in_plaintext(
         GLOBAL_VAR(opt_persist_sensitive_variables_in_plaintext),
     CMD_LINE(OPT_ARG), DEFAULT(true), NO_MUTEX_GUARD, NOT_IN_BINLOG,
     ON_CHECK(nullptr), ON_UPDATE(nullptr), nullptr, sys_var::PARSE_EARLY);
->>>>>>> mysql-8.0.29

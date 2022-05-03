@@ -127,19 +127,9 @@ static void repair_threads_update(THD *thd, SYS_VAR *, void *tgt,
 }
 
 static MYSQL_THDVAR_ULONG(
-<<<<<<< HEAD
     repair_threads, PLUGIN_VAR_RQCMDARG | PLUGIN_VAR_HINTUPDATEABLE,
-    "If larger than 1, when repairing a MyISAM table all indexes will be "
-    "created in parallel, with one thread per index. The value of 1 "
-||||||| 6846e6b2f72
-    repair_threads, PLUGIN_VAR_RQCMDARG,
-    "If larger than 1, when repairing a MyISAM table all indexes will be "
-    "created in parallel, with one thread per index. The value of 1 "
-=======
-    repair_threads, PLUGIN_VAR_RQCMDARG,
     "DEPRECATED. If larger than 1, when repairing a MyISAM table all indexes "
     "will be created in parallel, with one thread per index. The value of 1 "
->>>>>>> mysql-8.0.29
     "disables parallel repair",
     nullptr, repair_threads_update, 1, 1, ULONG_MAX, 1);
 
