@@ -49,6 +49,7 @@ connect (con1, localhost, u1);
 --let alter_encryption='n'
 --source ./alter_table.inc
 
+--let expected_error4=ER_TABLESPACE_CANNOT_ENCRYPT
 --let alter_encryption='y'
 --source ./alter_table.inc
 
@@ -70,6 +71,7 @@ connect (con1, localhost, u1);
 --let alter_encryption='n'
 --source ./alter_table.inc
 
+--let expected_error4=ER_TABLESPACE_CANNOT_ENCRYPT
 --let alter_encryption='y'
 --source ./alter_table.inc
 
@@ -103,6 +105,7 @@ connect (con1, localhost, u1);
 --let expected_error4=ER_TARGET_TABLESPACE_UNENCRYPTED
 --source ./alter_table.inc
 
+--let expected_error4=ER_TABLESPACE_CANNOT_ENCRYPT
 --let alter_encryption='y'
 --source ./alter_table.inc
 
@@ -131,6 +134,7 @@ connect (con1, localhost, u1);
 --let expected_error4=ER_TARGET_TABLESPACE_UNENCRYPTED
 --source ./alter_table.inc
 
+--let expected_error4=ER_TABLESPACE_CANNOT_ENCRYPT
 --let has_grant=false
 --let alter_encryption='y'
 --source ./alter_table.inc
