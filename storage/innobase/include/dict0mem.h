@@ -2617,8 +2617,8 @@ detect this and will eventually quit sooner. */
   inline bool support_instant_add_drop() const;
 };
 
-static inline void DICT_TF2_FLAG_SET(dict_table_t *table, uint32_t flag) {
-  table->flags2 |= flag;
+static inline bool DICT_TF2_FLAG_SET(dict_table_t *table, uint32_t flag) {
+  return (table->flags2 |= flag);
 }
 
 static inline bool DICT_TF2_FLAG_IS_SET(const dict_table_t *table,
