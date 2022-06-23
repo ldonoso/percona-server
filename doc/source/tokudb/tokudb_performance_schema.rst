@@ -6,9 +6,9 @@ TokuDB Performance Schema Integration
 
 .. Important:: 
 
-   Starting with Percona Server for MySQL :ref:`8.0.28-19`, the TokuDB storage engine is no longer supported. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds.
+   Starting with :ref:`8.0.28-19`, the TokuDB storage engine is no longer supported. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds.
 
-   Starting with Percona Server for MySQL :ref:`8.0.26-16`, the binary builds and packages include but disable the TokuDB storage engine plugins. The ``tokudb_enabled`` option and the ``tokudb_backup_enabled`` option control the state of the plugins and have a default setting of ``FALSE``. The result of attempting to load the plugins are the plugins fail to initialize and print a deprecation message.
+   Starting with :ref:`8.0.26-16`, the binary builds and packages include but disable the TokuDB storage engine plugins. The ``tokudb_enabled`` option and the ``tokudb_backup_enabled`` option control the state of the plugins and have a default setting of ``FALSE``. The result of attempting to load the plugins are the plugins fail to initialize and print a deprecation message.
 
    We recommend :ref:`migrate-myrocks`. To enable the plugins to migrate to another storage engine, set the ``tokudb_enabled`` and ``tokudb_backup_enabled`` options to ``TRUE`` in your ``my.cnf`` file and restart your server instance. Then, you can load the plugins.
 
@@ -20,7 +20,7 @@ TokuDB Performance Schema Integration
 This integration can be used for profiling additional *TokuDB* operations.
 
 *TokuDB* instruments available in Performance Schema can be seen in
-:table:`PERFORMANCE_SCHEMA.SETUP_INSTRUMENTS` table:
+:ref:`PERFORMANCE_SCHEMA.SETUP_INSTRUMENTS` table:
 
 .. code-block:: mysql
 
@@ -108,7 +108,7 @@ Performance Schema tables:
  * ``WHERE NAME LIKE '%fti%'``
 
 For example, to get the information about *TokuDB* related events you can query
-:table:`PERFORMANCE_SCHEMA.events_waits_summary_global_by_event_name` like:
+:ref:`PERFORMANCE_SCHEMA.events_waits_summary_global_by_event_name` like:
 
 .. code-block:: mysql
 

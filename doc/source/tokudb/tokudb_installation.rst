@@ -6,9 +6,9 @@
 
 .. Important:: 
 
-   Starting with Percona Server for MySQL :ref:`8.0.28-19`, the TokuDB storage engine is no longer supported. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds.
+   Starting with :ref:`8.0.28-19`, the TokuDB storage engine is no longer supported. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds.
 
-   Starting with Percona Server for MySQL :ref:`8.0.26-16`, the binary builds and packages include but disable the TokuDB storage engine plugins. The ``tokudb_enabled`` option and the ``tokudb_backup_enabled`` option control the state of the plugins and have a default setting of ``FALSE``. The result of attempting to load the plugins are the plugins fail to initialize and print a deprecation message.
+   Starting with :ref:`8.0.26-16`, the binary builds and packages include but disable the TokuDB storage engine plugins. The ``tokudb_enabled`` option and the ``tokudb_backup_enabled`` option control the state of the plugins and have a default setting of ``FALSE``. The result of attempting to load the plugins are the plugins fail to initialize and print a deprecation message.
 
    We recommend :ref:`migrate-myrocks`. To enable the plugins to migrate to another storage engine, set the ``tokudb_enabled`` and ``tokudb_backup_enabled`` options to ``TRUE`` in your ``my.cnf`` file and restart your server instance. Then, you can load the plugins.
 
@@ -55,12 +55,11 @@ package by using the :program:`apt`` or :program:`yum` package
 manager, but *Percona Server for MySQL* instance should be restarted for
 ``libjemalloc`` to be loaded. This way ``libjemalloc`` will be loaded
 with ``LD_PRELOAD``. You can also enable ``libjemalloc`` by specifying
-:variable:`malloc-lib` variable in the ``[mysqld_safe]`` section of
+:ref:`malloc-lib` variable in the ``[mysqld_safe]`` section of
 the :file:`my.cnf` file: ::
 
   [mysqld_safe]
   malloc-lib= /path/to/jemalloc
-
 
 Transparent huge pages
 --------------------------------------------------------------------------------
@@ -131,7 +130,6 @@ Once the *TokuDB* server package is installed, the following output is shown:
      * See http://www.percona.com/doc/percona-server/8.0/tokudb/tokudb_installation.html for more installation details
 
      * See http://www.percona.com/doc/percona-server/8.0/tokudb/tokudb_intro.html for an introduction to TokuDB
-
 
 *Percona Server for MySQL* has implemented :program:`ps-admin` to make the enabling the
 *TokuDB* storage engine easier. This script will automatically disable

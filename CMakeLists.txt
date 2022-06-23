@@ -1990,7 +1990,10 @@ IF(WITH_PROTOBUF STREQUAL "bundled" OR WITH_FIDO STREQUAL "bundled")
   ENDIF()
 ENDIF()
 
-ADD_SUBDIRECTORY(extra/libkmip)
+IF(NOT DEFINED WITH_COMPONENT_KEYRING_KMIP AND NOT DEFINED WITHOUT_COMPONENT_KEYRING_KMIP
+   OR WITH_COMPONENT_KEYRING_KMIP)
+  ADD_SUBDIRECTORY(extra/libkmip)
+ENDIF()
 
 #
 # Setup maintainer mode options by the end. Platform checks are
@@ -2043,6 +2046,11 @@ OPTION(WITH_HYPERGRAPH_OPTIMIZER
   "Allow use of the hypergraph join optimizer"
   ${WITH_HYPERGRAPH_OPTIMIZER_DEFAULT}
   )
+
+OPTION(WITH_ENCRYPTION_UDF "Build Encryption UDF plugin" ON)
+IF(WITH_ENCRYPTION_UDF)
+  ADD_SUBDIRECTORY(extra/opensslpp)
+ENDIF()
 
 # Utility target to build every executable tagged with ADD_TEST.
 ADD_CUSTOM_TARGET(unittest_all)

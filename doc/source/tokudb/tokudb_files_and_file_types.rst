@@ -6,9 +6,9 @@ TokuDB files and file types
 
 .. Important:: 
 
-   Starting with Percona Server for MySQL :ref:`8.0.28-19`, the TokuDB storage engine is no longer supported. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds.
+   Starting with :ref:`8.0.28-19`, the TokuDB storage engine is no longer supported. We have removed the storage engine from the installation packages and disabled the storage engine in our binary builds.
 
-   Starting with Percona Server for MySQL :ref:`8.0.26-16`, the binary builds and packages include but disable the TokuDB storage engine plugins. The ``tokudb_enabled`` option and the ``tokudb_backup_enabled`` option control the state of the plugins and have a default setting of ``FALSE``. The result of attempting to load the plugins are the plugins fail to initialize and print a deprecation message.
+   Starting with :ref:`8.0.26-16`, the binary builds and packages include but disable the TokuDB storage engine plugins. The ``tokudb_enabled`` option and the ``tokudb_backup_enabled`` option control the state of the plugins and have a default setting of ``FALSE``. The result of attempting to load the plugins are the plugins fail to initialize and print a deprecation message.
 
    We recommend :ref:`migrate-myrocks`. To enable the plugins to migrate to another storage engine, set the ``tokudb_enabled`` and ``tokudb_backup_enabled`` options to ``TRUE`` in your ``my.cnf`` file and restart your server instance. Then, you can load the plugins.
 
@@ -93,7 +93,7 @@ These are typically named:
 ``_<database>_<table>_<key>_<internal_txn_id>.tokudb``
 
 *Percona FT* creates/expects these files in the directory specified by
-:variable:`tokudb_data_dir` if set, otherwise the *MySQL* ``datadir`` is used.
+:ref:`tokudb_data_dir` if set, otherwise the *MySQL* ``datadir`` is used.
 
 Recovery log files
 ------------------
@@ -108,8 +108,7 @@ These files have a rolling naming convention, but use:
 ``log<log_file_number>.tokulog<log_file_format_version>``.
 
 *Percona FT* creates/expects these files in the directory specified by
-:variable:`tokudb_log_dir` if set, otherwise the *MySQL* `datadir` is
-used.
+:ref:`tokudb_log_dir` if set, otherwise the *MySQL* `datadir` is used.
 
 *Percona FT* does not track what log files should or shouldn't be present. Upon
 startup, it discovers the logs in the log directory, and replays them in order.
@@ -128,7 +127,7 @@ As different operations start and finish, the files will come and go.
 There are no temporary files left behind upon a clean shutdown,
 
 *Percona FT* creates/expects these files in the directory specified by
-:variable:`tokudb_tmp_dir` if set. If not, the :variable:`tokudb_data_dir` is
+:ref:`tokudb_tmp_dir` if set. If not, the :ref:`tokudb_data_dir` is
 used if set, otherwise the *MySQL* `datadir` is used.
 
 Lock files
